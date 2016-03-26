@@ -5,14 +5,15 @@
 #include <QObject>
 #include <QVector>
 #include <QTimer>
+#include "streamer.h"
 class eventScheduler: public QObject
 {
 	Q_OBJECT
 	public:
 		eventScheduler();
 		~eventScheduler();
-		void registerBrEvent(QString steamId,QString channel);
-		void registerStreamStatEvent(QString channel);
+		void registerBrEvent(streamer* pStreamer);
+		void registerStreamStatEvent(streamer* pStreamer);
 		QVector<eventBase*> getEvents();
 	private:
 		QTimer ticker;

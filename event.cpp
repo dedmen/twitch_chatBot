@@ -2,7 +2,7 @@
 #include "twitchhelper.h"
 #include <QDebug>
 #include "irc.h"
-eventBase::eventBase()
+eventBase::eventBase(streamer* pStreamer) : owner(pStreamer)
 {
 
 }
@@ -12,9 +12,9 @@ eventBase::~eventBase()
 
 }
 
-event_BRRankup::event_BRRankup(QString steamId,QString channel)
+event_BRRankup::event_BRRankup(streamer* pStreamer) : eventBase(pStreamer)
 {
-	this->steamID = steamId;
+	this->steamID = pStreamer->getConfigValue(""); //#FIXME
 	this->channel = channel;
 	lastRank = 0;
 	lastKills = 0;
@@ -48,11 +48,17 @@ void event_BRRankup::tickEvent()
 			return;
 		} else if (rank > lastRank && (lastKills != kills || lastLosses != losses)){ //Kills und losses so that it doesnt message when another player gets higher rank and pushes target down
 			qDebug() << "rankDown";
-			emit sendMessageToChannel(channel, QString("BattleRoyale Downrank ._. %1 has been punished from rank %2 to rank %3 for his %4 Kills and %5 Deaths.").arg(channel,QString::number(lastRank),QString::number(rank),QString::number(kills),QString::number(losses)));
+			if (channel.compare("cyngii") == 0)
+				emit sendMessageToChannel(channel, QString("BattleRoyale Downrank ._. My Master has been punished from rank %1 to rank %2 for his %3 Kills and %4 Deaths.").arg(QString::number(lastRank),QString::number(rank),QString::number(kills),QString::number(losses)));
+			else
+				emit sendMessageToChannel(channel, QString("BattleRoyale Downrank ._. %1 has been punished from rank %2 to rank %3 for his %4 Kills and %5 Deaths.").arg(channel,QString::number(lastRank),QString::number(rank),QString::number(kills),QString::number(losses)));
 
 		} else if (rank < lastRank && (lastKills != kills || lastLosses != losses)) {
 			qDebug() << "rankUp";
-			emit sendMessageToChannel(channel, QString("BattleRoyale Uprank! %1 has been awarded from rank %2 to rank %3 for his %4 Kills and %5 Deaths.").arg(channel,QString::number(lastRank),QString::number(rank),QString::number(kills),QString::number(losses)));
+			if (channel.compare("cyngii") == 0)
+				emit sendMessageToChannel(channel, QString("BattleRoyale Uprank! My Master has been awarded from rank %1 to rank %2 for his %3 Kills and %4 Deaths.").arg(QString::number(lastRank),QString::number(rank),QString::number(kills),QString::number(losses)));
+			else
+				emit sendMessageToChannel(channel, QString("BattleRoyale Uprank! %1 has been awarded from rank %2 to rank %3 for his %4 Kills and %5 Deaths.").arg(channel,QString::number(lastRank),QString::number(rank),QString::number(kills),QString::number(losses)));
 
 		}
 	}
@@ -70,7 +76,7 @@ QString event_BRRankup::getChannel() const
 	return channel;
 }
 
-event_streamStats::event_streamStats(QString channel)
+event_streamStats::event_streamStats(streamer* pStreamer) : eventBase(pStreamer)
 {
 	this->channel = channel;
 	this->recordViewers = ircclient->db.getStreamerValue(channel,"viewerRecord").toInt();

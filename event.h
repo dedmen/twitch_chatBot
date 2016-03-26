@@ -2,14 +2,15 @@
 #define EVENT_H
 
 #include <QObject>
-
+class streamer;
 class eventBase: public QObject
 {
 		Q_OBJECT
 	public:
-		eventBase();
+		eventBase(streamer* pStreamer);
 		~eventBase();
-
+	private:
+		streamer* owner;
 	signals:
 		void sendMessageToChannel(QString channel,QString message);
 	public slots:
@@ -20,7 +21,7 @@ class event_BRRankup : public eventBase
 {
 		Q_OBJECT
 	public:
-		event_BRRankup(QString steamId,QString channel);
+		event_BRRankup(streamer* pStreamer);
 		~event_BRRankup();
 		QString getChannel() const;
 		QString getSteamID() const;
@@ -39,7 +40,7 @@ class event_streamStats : public eventBase
 {
 		Q_OBJECT
 	public:
-		event_streamStats(QString channel);
+		event_streamStats(streamer* pStreamer);
 		~event_streamStats();
 	public slots:
 		virtual void tickEvent();

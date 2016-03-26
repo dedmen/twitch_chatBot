@@ -11,16 +11,16 @@ eventScheduler::~eventScheduler()
 
 }
 
-void eventScheduler::registerBrEvent(QString steamId, QString channel)
+void eventScheduler::registerBrEvent(streamer* pStreamer)
 {
 	qDebug() << __FUNCTION__;
-	event_BRRankup* ev = new event_BRRankup(steamId,channel);
+	event_BRRankup* ev = new event_BRRankup(pStreamer,channel);
 	connect (ev,&event_BRRankup::sendMessageToChannel,this,&eventScheduler::sendMessageToChannel);
 	connect(&this->ticker,&QTimer::timeout,ev,&event_BRRankup::tickEvent);
 	events.append(ev);
 }
 
-void eventScheduler::registerStreamStatEvent(QString channel)
+void eventScheduler::registerStreamStatEvent(streamer* pStreamer)
 {
 	qDebug() << __FUNCTION__;
 	event_streamStats* ev = new event_streamStats(channel);

@@ -25,24 +25,6 @@ void irc::run(){
 	socket = new QTcpSocket();
 	connect(socket, SIGNAL(readyRead()),SLOT(readData()));
 
-
-	//QFile json("E:/dbg/cyngii.json");
-	//json.open(QFile::ReadOnly);
-	//QByteArray data = json.readAll();
-	//json.close();
-	//HTTPdownloader htdl;
-	//QByteArray data = htdl.Doget("https://api.twitch.tv/kraken/streams/cyngii").toUtf8();
-	//qDebug() << data;
-	//QJsonObject obj = twitchHelper::getUserChannelInfo("cyngii");//QJsonDocument::fromJson(data).object();
-	//qDebug() << obj.value("stream").toObject().value("created_at").toString();
-	//QDateTime time = QDateTime::fromString(obj.value("stream").toObject().value("created_at").toString(),"yyyy-MM-ddTHH:mm:ssZ");
-	//time = time.addSecs(60*60);
-	//
-	//qDebug() <<"t"  << time.toString() << time << time.secsTo(QDateTime::currentDateTime())/60;
-
-
-
-
 	// socket->moveToThread(QThread::currentThread());
 	connectToSvr();
 }
@@ -61,6 +43,16 @@ void irc::sendMessageToChannel(QString channel, QString message)
 		logfile.close();
 	}
 	socket->write(QString("PRIVMSG #"+channel+" :"+message).toUtf8());// immer \r\n am ende einer gesendeten nachricht
+}
+
+void irc::addChannel(QString channel)
+{
+	if (channelList.contains(channel))
+		return;
+
+	channelList << channel;
+if (ready)
+	socket->write(QString("JOIN #"+channel+"\r\n").toUtf8());
 }
 
 void irc::ThreadStarted(){
@@ -134,7 +126,7 @@ void irc::parseData(QString dataS)
 	if (dataS.contains("Checking Ident")){
 		socket->write(QString("NICK "tmi_User"\r\n").toUtf8());
 		//socket->flush();
-		socket->write(QString("USER GFBot bot "tmi_Host" :"+tmi_User+"\r\n).toUtf8());
+		socket->write(QString("USER GFBot bot "+tmi_Host+" :"+tmi_User+"\r\n").toUtf8());
 		// socket->flush();
 	}
 	if (dataS.contains(QRegExp("(PING :)"))){
@@ -143,25 +135,21 @@ void irc::parseData(QString dataS)
 		//socket->flush();
 	}
 	if (dataS.contains("Your host is tmi.twitch.tv")){
+		ready = true;
 		for (QString str : channelList)
 			socket->write(QString("JOIN #"+str+" \r\n").toUtf8());
 		socket->write("CAP REQ :twitch.tv/membership\r\n");
+
 		evSched.registerBrEvent("76561198052890618","cyngii");
 		evSched.registerBrEvent("76561198125252204","frappuccino1337");
 		evSched.registerStreamStatEvent("cyngii");
 		evSched.registerStreamStatEvent("dedmenmiller");
+
+
+
 		//socket->flush();
 	}
-	//if ((dataS.contains("PART #cyngii") || dataS.contains("JOIN #cyngii")) && !dataS.toLower().contains("M0hawpsi")){
-	//    dataS = dataS.right(dataS.size()-1);
-	//    qDebug() << "PART" << dataS;
-	//    dataS = dataS.left(dataS.indexOf("!"));
-	//      qDebug() << "PART" << dataS;
-	//      QString message = QString("PRIVMSG #theshadow451 :Hallo "+dataS+"\r\n");
-	//      qDebug() << "message" << message;
-	//            socket->write(message.toUtf8());
-	//}
-	//    qDebug() << dataS;
+
 	int indexOfPrivMsg = dataS.indexOf("PRIVMSG #",Qt::CaseInsensitive);
 	if (indexOfPrivMsg != -1) {
 		int begin = indexOfPrivMsg+sizeof("PRIVMSG #")-1;

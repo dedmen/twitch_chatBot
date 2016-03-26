@@ -30,3 +30,4 @@
 #Qt
 *.pro.user
 /localdata.h
+/release

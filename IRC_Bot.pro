@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     eventscheduler.cpp \
     event.cpp \
     database.cpp \
-    streamer.cpp
+    streamer.cpp \
+    controller.cpp
 
 HEADERS += \
     irc.h \
@@ -34,4 +35,5 @@ HEADERS += \
     event.h \
     database.h \
     streamer.h \
-    localdata.h
+    localdata.h \
+    controller.h
