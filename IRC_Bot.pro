@@ -9,7 +9,7 @@ QT       += core network widgets sql
 #QT       -= gui
 
 TARGET = IRC_Bot
-CONFIG   += console
+#CONFIG   += console
 CONFIG   -= app_bundle
 QMAKE_LFLAGS += /FS
 QMAKE_CXXFLAGS +=/FS

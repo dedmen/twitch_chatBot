@@ -64,7 +64,7 @@
       <ExceptionHandling>Sync</ExceptionHandling>
       <ObjectFileName>debug\</ObjectFileName>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_SQL_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_SQL_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -73,7 +73,7 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Widgetsd.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Sqld.lib;J:\Installs\development\mariaDB\build\libmariadb\Release\mariadbclient.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\platforms\qwindowsd.lib;winspool.lib;shlwapi.lib;rpcrt4.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5PlatformSupportd.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\qtfreetyped.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\imageformats\qicod.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Guid.lib;comdlg32.lib;oleaut32.lib;imm32.lib;winmm.lib;glu32.lib;opengl32.lib;gdi32.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\qtharfbuzzngd.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\bearer\qgenericbearerd.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\bearer\qnativewifibearerd.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Networkd.lib;dnsapi.lib;J:\Installs\development\c++\openssl-1.0.2e-vs2015\lib\ssleay32MTd.lib;J:\Installs\development\c++\openssl-1.0.2e-vs2015\lib\libeay32MTd.lib;User32.lib;Advapi32.lib;Gdi32.lib;crypt32.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Cored.lib;kernel32.lib;user32.lib;shell32.lib;uuid.lib;ole32.lib;advapi32.lib;ws2_32.lib;mpr.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\qtpcred.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>J:\Installs\development\c++\QT5.5-static-mysql\lib\qtmaind.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Widgetsd.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Sqld.lib;J:\Installs\development\mariaDB\build\libmariadb\Release\mariadbclient.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\platforms\qwindowsd.lib;winspool.lib;shlwapi.lib;rpcrt4.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5PlatformSupportd.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\qtfreetyped.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\imageformats\qicod.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Guid.lib;comdlg32.lib;oleaut32.lib;imm32.lib;winmm.lib;glu32.lib;opengl32.lib;gdi32.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\qtharfbuzzngd.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\bearer\qgenericbearerd.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\bearer\qnativewifibearerd.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Networkd.lib;dnsapi.lib;J:\Installs\development\c++\openssl-1.0.2e-vs2015\lib\ssleay32MTd.lib;J:\Installs\development\c++\openssl-1.0.2e-vs2015\lib\libeay32MTd.lib;User32.lib;Advapi32.lib;Gdi32.lib;crypt32.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Cored.lib;kernel32.lib;user32.lib;shell32.lib;uuid.lib;ole32.lib;advapi32.lib;ws2_32.lib;mpr.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\qtpcred.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>J:\Installs\development\c++\QT5.5-static-mysql\lib;J:\Installs\development\mariaDB\build\libmariadb\Release;J:\Installs\development\c++\openssl-1.0.2e-vs2015\lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\platforms;J:\Installs\development\c++\QT5.5-static-mysql\plugins\imageformats;J:\Installs\development\c++\QT5.5-static-mysql\plugins\bearer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/FS &quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
@@ -81,7 +81,7 @@
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
       <OutputFile>$(OutDir)\IRC_Bot.exe</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Link>
     <Midl>
@@ -90,7 +90,7 @@
       <WarningLevel>0</WarningLevel>
     </Midl>
     <ResourceCompile>
-      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_SQL_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_SQL_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">
@@ -103,7 +103,7 @@
       <ExceptionHandling>Sync</ExceptionHandling>
       <ObjectFileName>release\</ObjectFileName>
       <Optimization>MaxSpeed</Optimization>
-      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_SQL_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_SQL_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <ProgramDataBaseFileName></ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -113,7 +113,7 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Widgets.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Sql.lib;J:\Installs\development\mariaDB\build\libmariadb\Release\mariadbclient.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\platforms\qwindows.lib;winspool.lib;shlwapi.lib;rpcrt4.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5PlatformSupport.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\qtfreetype.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\imageformats\qico.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Gui.lib;comdlg32.lib;oleaut32.lib;imm32.lib;winmm.lib;glu32.lib;opengl32.lib;gdi32.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\qtharfbuzzng.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\bearer\qgenericbearer.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\bearer\qnativewifibearer.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Network.lib;dnsapi.lib;J:\Installs\development\c++\openssl-1.0.2e-vs2015\lib\ssleay32MT.lib;J:\Installs\development\c++\openssl-1.0.2e-vs2015\lib\libeay32MT.lib;User32.lib;Advapi32.lib;Gdi32.lib;crypt32.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Core.lib;kernel32.lib;user32.lib;shell32.lib;uuid.lib;ole32.lib;advapi32.lib;ws2_32.lib;mpr.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\qtpcre.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>J:\Installs\development\c++\QT5.5-static-mysql\lib\qtmain.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Widgets.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Sql.lib;J:\Installs\development\mariaDB\build\libmariadb\Release\mariadbclient.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\platforms\qwindows.lib;winspool.lib;shlwapi.lib;rpcrt4.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5PlatformSupport.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\qtfreetype.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\imageformats\qico.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Gui.lib;comdlg32.lib;oleaut32.lib;imm32.lib;winmm.lib;glu32.lib;opengl32.lib;gdi32.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\qtharfbuzzng.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\bearer\qgenericbearer.lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\bearer\qnativewifibearer.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Network.lib;dnsapi.lib;J:\Installs\development\c++\openssl-1.0.2e-vs2015\lib\ssleay32MT.lib;J:\Installs\development\c++\openssl-1.0.2e-vs2015\lib\libeay32MT.lib;User32.lib;Advapi32.lib;Gdi32.lib;crypt32.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\Qt5Core.lib;kernel32.lib;user32.lib;shell32.lib;uuid.lib;ole32.lib;advapi32.lib;ws2_32.lib;mpr.lib;J:\Installs\development\c++\QT5.5-static-mysql\lib\qtpcre.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>J:\Installs\development\c++\QT5.5-static-mysql\lib;J:\Installs\development\mariaDB\build\libmariadb\Release;J:\Installs\development\c++\openssl-1.0.2e-vs2015\lib;J:\Installs\development\c++\QT5.5-static-mysql\plugins\platforms;J:\Installs\development\c++\QT5.5-static-mysql\plugins\imageformats;J:\Installs\development\c++\QT5.5-static-mysql\plugins\bearer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/FS &quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
@@ -122,7 +122,7 @@
       <LinkIncremental>false</LinkIncremental>
       <OutputFile>$(OutDir)\IRC_Bot.exe</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Link>
     <Midl>
@@ -131,7 +131,7 @@
       <WarningLevel>0</WarningLevel>
     </Midl>
     <ResourceCompile>
-      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_SQL_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_SQL_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
