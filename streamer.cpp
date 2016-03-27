@@ -7,6 +7,7 @@ streamerId(streamerId) {
 }
 
 streamer::~streamer() {
+	qDebug() << __FUNCTION__;
 	for (eventBase* pEvent : events)
 		control->pEventScheduler.unregisterEvent(pEvent);
 	control->pIrc.removeChannel(channelId);

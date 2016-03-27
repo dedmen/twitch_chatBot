@@ -20,9 +20,11 @@ public:
 	eventBase(streamer* pStreamer);
 	~eventBase();
 	streamer* getOwner() { return owner; };
+	eventTypes getEventType() { return eventType; }
 private:
 protected:
 	streamer* owner;
+	eventTypes eventType;
 signals:
 	void sendMessageToChannel(streamer* pStreamer, QString message,bool ignoreMute = false);
 	public slots:

@@ -11,8 +11,10 @@ eventBase::~eventBase() {
 }
 
 event_BRRankup::event_BRRankup(streamer* pStreamer) : eventBase(pStreamer) {
+	eventType = BRRankup;
 	this->steamID = pStreamer->getConfigValue("steamId"); //#TODO throw error when not exist
 	this->channel = pStreamer->channelId;
+	qDebug() << __FUNCTION__ << channel << steamID;
 	rankupMessage = QStringLiteral("BattleRoyale Uprank! %5 has been awarded from rank %1 to rank %2 for his %3 Kills and %4 Deaths.");
 	rankdownMessage = QStringLiteral("BattleRoyale Downrank ._. %5 has been punished from rank %1 to rank %2 for his %3 Kills and %4 Deaths.");
 	QString rupSetting;
@@ -30,7 +32,7 @@ event_BRRankup::event_BRRankup(streamer* pStreamer) : eventBase(pStreamer) {
 }
 
 event_BRRankup::~event_BRRankup() {
-
+	qDebug() << __FUNCTION__ << channel << steamID;
 
 
 
@@ -75,6 +77,7 @@ QString event_BRRankup::getChannel() const {
 }
 
 event_streamStats::event_streamStats(streamer* pStreamer) : eventBase(pStreamer) {
+	eventType = streamStats;
 	this->channel = pStreamer->channelId;
 
 	this->recordViewers = owner->getConfigValue("viewerRecord").toInt();
@@ -88,7 +91,11 @@ event_streamStats::event_streamStats(streamer* pStreamer) : eventBase(pStreamer)
 }
 
 event_streamStats::~event_streamStats() {
-
+	qDebug() << __FUNCTION__ << channel << recordViewers << recordUptime;
+	if (viewerAlertIssued)
+		owner->setConfigValue("viewerRecord", QString::number(recordViewers));
+	if (uptimeAlertIssued)
+		owner->setConfigValue("uptimeRecord", QString::number(recordUptime));
 }
 #include <QJsonDocument>
 void event_streamStats::tickEvent() {

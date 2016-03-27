@@ -16,6 +16,7 @@ public:
 	quint32 getStreamerId() const { return streamerId; }
 	void addEvent(eventBase* pEvent) { events.append(pEvent); };
 	void removeEvent(eventBase* pEvent) { events.removeAll(pEvent); };
+	QList<eventBase*> getEvents() { return events; };
 	bool muted;
 	void checkMuted();
 private:

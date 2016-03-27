@@ -46,7 +46,8 @@ bool eventScheduler::streamerHasEvent(streamer* pStreamer, eventTypes eventType)
 	return false;
 }
 
-void eventScheduler::unregisterEvent(eventBase* pEvent) {
+void eventScheduler::unregisterEvent(eventBase* pEvent) { //#TODO nullptr check
+	qDebug() << __FUNCTION__ << pEvent->getEventType();
 	events.removeAll(pEvent);
 	pEvent->getOwner()->removeEvent(pEvent);
 }

@@ -26,7 +26,9 @@ void controller::initDB() {
 
 void controller::refreshStreamerList() {
 	//#TODOlowPrio also remove disabled streamers
+	QStringList allowedStreamers;
 	for (streamerListData streamerData : pDb.getAllStreamers()) {
+		allowedStreamers.append(streamerData.channelId);
 		if (!haveStreamer(streamerData.channelId)) {
 			qDebug() << "addStreamer" << streamerData.channelId;
 			streamer* pStreamer = new streamer(this, this, streamerData.index, streamerData.channelId);
@@ -36,11 +38,12 @@ void controller::refreshStreamerList() {
 			refreshStreamerEvents(pStreamer);
 		}
 	}
-
-	//#TODO get all Events
-
-
-
+	for (streamer* pStreamer : streamerList) {
+		if (!allowedStreamers.contains(pStreamer->channelId)) {
+			streamerList.removeAll(pStreamer);
+			delete pStreamer;  //also removes his Events
+		}
+	}
 }
 
 bool controller::haveStreamer(QString channelId) {
@@ -60,6 +63,8 @@ void controller::refreshStreamerConfig(streamer* pStreamer) {
 void controller::refreshStreamerEvents(streamer* pStreamer) {
 	auto data = pDb.getStreamerEvents(pStreamer);
 	for (auto event : data) {
+		if (pEventScheduler.streamerHasEvent(pStreamer, (eventTypes) event))
+			continue;
 		switch ((eventTypes) event) {
 			case BRRankup:
 				pEventScheduler.registerBrEvent(pStreamer);
@@ -67,7 +72,13 @@ void controller::refreshStreamerEvents(streamer* pStreamer) {
 			case streamStats:
 				pEventScheduler.registerStreamStatEvent(pStreamer);
 				break;
+			case null: break;
+			default: break;
 		}
+	}
+	for (eventBase* pEvent : pStreamer->getEvents()) {
+		if (!data.contains(pEvent->getEventType()))
+			pEventScheduler.unregisterEvent(pEvent);
 	}
 }
 
@@ -81,8 +92,8 @@ streamer* controller::getStreamerByChannel(QString channelId) {
 void controller::ircMessageIn(QString channel, QString user, QString message) {
 	streamer* pStreamer = getStreamerByChannel(channel);
 
-	if (message.contains("dedmen",Qt::CaseInsensitive) && !user.compare("maugrim8888",Qt::CaseInsensitive))
-		pIrc.sendMessageToChannel(pStreamer, "Hallo Maugrim!\r\n",true);
+	if (message.contains("dedmen", Qt::CaseInsensitive) && !user.compare("maugrim8888", Qt::CaseInsensitive))
+		pIrc.sendMessageToChannel(pStreamer, "Hallo Maugrim!\r\n", true);
 	if (message.contains("!viewers")) {
 		QJsonObject obj = twitchHelper::getUserChannelInfo(channel);
 		//qDebug() << obj.value("stream").toObject().value("viewers").toInt();
@@ -140,7 +151,7 @@ void controller::ircMessageIn(QString channel, QString user, QString message) {
 	QRegularExpression regExpZockst("was (zockst|spielst) du");
 	regExpZockst.setPatternOptions(regExpZockst.patternOptions() | QRegularExpression::CaseInsensitiveOption);
 	if (regExpZockst.match(message).hasMatch()) {
-		pIrc.sendMessageToChannel(pStreamer, "@"+user+" steht oben!",true);
+		pIrc.sendMessageToChannel(pStreamer, "@" + user + " steht oben!", true);
 	}
 	if (message.left(3).compare("was", Qt::CaseInsensitive) == 0)
 		qDebug() << user << message;

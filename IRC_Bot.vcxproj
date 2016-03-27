@@ -54,6 +54,9 @@
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>.;..\IRC_BOT;..\QT5.5-static-mysql\include;..\QT5.5-static-mysql\include\QtWidgets;..\QT5.5-static-mysql\include\QtGui;..\QT5.5-static-mysql\include\QtNetwork;..\QT5.5-static-mysql\include\QtSql;..\QT5.5-static-mysql\include\QtCore;debug;..\QT5.5-static-mysql\mkspecs\win32-msvc2015;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
