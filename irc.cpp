@@ -61,6 +61,12 @@ void irc::addChannel(QString channel) {
 		socket->write(QString("JOIN #" + channel + "\r\n").toUtf8());
 }
 
+void irc::removeChannel(QString channel) {
+	channelList.removeAll(channel);
+	if (ready)
+		socket->write(QString("PART #" + channel + "\r\n").toUtf8());
+}
+
 void irc::ThreadStarted() {
 	//qDebug() << "IRCThreadStarted" << QThread::currentThreadId();
 	socket = new QTcpSocket(this);

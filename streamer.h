@@ -15,6 +15,7 @@ public:
 	void setConfigValue(QString key, QString value, bool pushToDatabase = true);
 	quint32 getStreamerId() const { return streamerId; }
 	void addEvent(eventBase* pEvent) { events.append(pEvent); };
+	void removeEvent(eventBase* pEvent) { events.removeAll(pEvent); };
 	bool muted;
 	void checkMuted();
 private:

@@ -14,6 +14,7 @@ public:
 	void registerBrEvent(streamer* pStreamer);
 	void registerStreamStatEvent(streamer* pStreamer);
 	bool streamerHasEvent(streamer* pStreamer, eventTypes eventType);
+	void unregisterEvent(eventBase* pEvent);
 	QVector<eventBase*> getEvents();
 private:
 	QTimer ticker;

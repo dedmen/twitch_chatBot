@@ -38,7 +38,8 @@ private:
 	int delay;
 	public slots:
 	void addChannel(QString channel);
-	void sendMessageToChannel(streamer* pStreamer, QString message,bool ignoreMute = false);
+	void removeChannel(QString channel);
+	void sendMessageToChannel(streamer* pStreamer, QString message, bool ignoreMute = false);
 	private slots:
 	void ThreadStarted();
 	void connected();

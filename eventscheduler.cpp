@@ -14,6 +14,7 @@ void eventScheduler::registerBrEvent(streamer* pStreamer) {
 	event_BRRankup* ev = new event_BRRankup(pStreamer);
 	connect(ev, &event_BRRankup::sendMessageToChannel, this, &eventScheduler::sendMessageToChannel);
 	connect(&this->ticker, &QTimer::timeout, ev, &event_BRRankup::tickEvent);
+	pStreamer->addEvent(ev);
 	events.append(ev);
 }
 
@@ -22,6 +23,7 @@ void eventScheduler::registerStreamStatEvent(streamer* pStreamer) {
 	event_streamStats* ev = new event_streamStats(pStreamer);
 	connect(ev, &event_streamStats::sendMessageToChannel, this, &eventScheduler::sendMessageToChannel);
 	connect(&this->ticker, &QTimer::timeout, ev, &event_streamStats::tickEvent);
+	pStreamer->addEvent(ev);
 	events.append(ev);
 }
 
@@ -42,6 +44,11 @@ bool eventScheduler::streamerHasEvent(streamer* pStreamer, eventTypes eventType)
 		}
 	}
 	return false;
+}
+
+void eventScheduler::unregisterEvent(eventBase* pEvent) {
+	events.removeAll(pEvent);
+	pEvent->getOwner()->removeEvent(pEvent);
 }
 
 QVector<eventBase*> eventScheduler::getEvents() {

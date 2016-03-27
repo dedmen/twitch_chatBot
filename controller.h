@@ -18,9 +18,9 @@ public:
 	void refreshStreamerEvents(streamer* pStreamer);
 	streamer* getStreamerByChannel(QString); //#TODO add map/hashmap for that
 	database pDb; //#TODO make private and forward functions
-private:
-	irc pIrc;
 	eventScheduler pEventScheduler;
+	irc pIrc;
+private:
 	QList<streamer*> streamerList;
 	public slots:
 	void ircMessageIn(QString channel, QString user, QString message);

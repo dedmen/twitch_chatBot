@@ -32,3 +32,8 @@
 /localdata.h
 /release
 /debug
+/.vs/IRC_Bot/v14
+/IRC_Bot.vcxproj.user
+/IRC_Bot.VC.opendb
+/IRC_Bot.sdf
+/irclog.txt
