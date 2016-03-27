@@ -5,24 +5,26 @@
 #include "event.h"
 #include <QMap>
 class controller;
-class streamer : public QObject
-{
-		Q_OBJECT
-	public:
-		explicit streamer(QObject *parent ,controller* pControl,quint32 streamerId,QString channelId);	//#TODO push parent to end with default value
-		~streamer();
-		QString channelId;
-		QString getConfigValue(QString key);
-		void setConfigValue(QString key, QString value,bool pushToDatabase = true);
-		quint32 getStreamerId() const { return streamerId; }
+class streamer : public QObject {
+	Q_OBJECT
+public:
+	explicit streamer(QObject *parent, controller* pControl, quint32 streamerId, QString channelId);	//#MAYBE push parent to end with default value
+	~streamer();
+	QString channelId;
+	QString getConfigValue(QString key);
+	void setConfigValue(QString key, QString value, bool pushToDatabase = true);
+	quint32 getStreamerId() const { return streamerId; }
+	void addEvent(eventBase* pEvent) { events.append(pEvent); };
+	bool muted;
+	void checkMuted();
 private:
-		controller* control;
-		quint32 streamerId; //cant be 0 without error
-		QVector<eventBase*> events;
-		QMap<QString,QString> config;
-	signals:
+	controller* control;
+	quint32 streamerId; //cant be 0 without error
+	QList<eventBase*> events;
+	QMap<QString, QString> config;
+signals:
 
-	public slots:
+	public slots :
 };
 
 #endif // STREAMER_H

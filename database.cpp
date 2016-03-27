@@ -8,8 +8,7 @@
 #include <QJsonDocument>
 #include "irc.h"
 #include "localdata.h"
-database::database(QObject *parent) : QObject(parent)
-{
+database::database(QObject *parent) : QObject(parent) {
 	//db = QSqlDatabase::addDatabase("QSQLITE");
 	//db.setDatabaseName(QApplication::applicationDirPath()+"/database.db");
 	//if (!db.open())
@@ -26,17 +25,14 @@ database::database(QObject *parent) : QObject(parent)
 
 }
 
-database::~database()
-{
+database::~database() {
 
 }
-
-void database::init()
-{
-
-	db = QSqlDatabase::addDatabase("QMYSQL3","streamBot");
+#include <QSqlDriver>
+void database::init() {
+	db = QSqlDatabase::addDatabase("QMYSQL3");
 	db.setHostName(QStringLiteral("updtDB.dedmen.de"));
-	db.setDatabaseName(QStringLiteral("ModpackUpdaterC"));
+	db.setDatabaseName(QStringLiteral("streamBot"));
 	db.setUserName(dbUser);
 	db.setPassword(dbMUPw);
 	bool ok = db.open();
@@ -46,26 +42,25 @@ void database::init()
 		db.setUserName(dbUser);
 		db.setPassword(dbMUPw);
 		ok = db.open();
+		qDebug() << "db2 connect" << ok;
 	}
 	if (!ok)
 		qFatal("no db");
 	db.setConnectOptions("MYSQL_OPT_RECONNECT=1;"); //QMYSQLDriver::open: Unknown connect option 'MYSQL_OPT_COMPRESS'
 }
 
-void database::setStreamerValue(streamer* pStreamer, QString key, QString value)
-{
+void database::setStreamerValue(streamer* pStreamer, QString key, QString value) {
 	QSqlQuery query;
-	qDebug() << __FUNCTION__ <<  key << value;
-	if (query.exec(QString("CALL proc_setStreamerConfig('"+QString::number(pStreamer->getStreamerId())+"','"+key+"','"+value+"')"))){	//#TODO use .arg()
+	qDebug() << __FUNCTION__ << key << value;
+	if (query.exec(QString("CALL proc_setStreamerConfig('" + QString::number(pStreamer->getStreamerId()) + "','" + key + "','" + value + "')"))) {	//#TODO use .arg()
 		return;
-	}else {
+	} else {
 		qWarning() << __FUNCTION__ << query.lastError().text();
 		return;
 	}
 }
 
-QString database::getStreamerValue(QString channelId, QString key)
-{
+QString database::getStreamerValue(QString channelId, QString key) {
 	//QSqlQuery query;
 	//if (query.exec(QString("CALL proc_getStreamerConfigs('"++"');"))){
 	//	while (query.next()){
@@ -78,12 +73,11 @@ QString database::getStreamerValue(QString channelId, QString key)
 	return QString();
 }
 
-QList<streamerConfigData> database::getStreamerConfig(streamer* pStreamer)
-{
+QList<streamerConfigData> database::getStreamerConfig(streamer* pStreamer) {
 	QList<streamerConfigData>  pList;
 	QSqlQuery query;
-	if (query.exec(QString("CALL proc_getStreamerConfigs('"+QString::number(pStreamer->getStreamerId())+"');"))){
-		while (query.next()){
+	if (query.exec(QString("CALL proc_getStreamerConfigs('" + QString::number(pStreamer->getStreamerId()) + "');"))) {
+		while (query.next()) {
 			streamerConfigData pData;
 			pData.key = query.record().value("key").toString();
 			pData.value = query.record().value("value").toString();
@@ -95,12 +89,25 @@ QList<streamerConfigData> database::getStreamerConfig(streamer* pStreamer)
 	return pList;
 }
 
-QList<streamerListData> database::getAllStreamers()
-{
+QList<int> database::getStreamerEvents(streamer* pStreamer) {
+
+	QList<int>  pList;
+	QSqlQuery query;
+	if (query.exec(QString("CALL proc_getStreamerEvents('" + QString::number(pStreamer->getStreamerId()) + "');"))) {
+		while (query.next()) {
+			pList.append(query.record().value("eventType").toInt());
+		}
+	} else {
+		qWarning() << __FUNCTION__ << query.lastError().text();
+	}
+	return pList;
+}
+
+QList<streamerListData> database::getAllStreamers() {
 	QList<streamerListData> pList;
 	QSqlQuery query;
-	if (query.exec(QString("CALL proc_getStreamerList();"))){
-		while (query.next()){
+	if (query.exec(QString("CALL proc_getStreamerList();"))) {
+		while (query.next()) {
 			streamerListData pData;
 			pData.index = query.record().value("index").toUInt();
 			pData.channelId = query.record().value("channelId").toString();

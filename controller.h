@@ -5,24 +5,25 @@
 #include "irc.h"
 #include "eventscheduler.h"
 #include "streamer.h"
-class controller : public QObject
-{
-		Q_OBJECT
-	public:
-		controller();
-		~controller();
-		void initIRC();
-		void initDB();
-		void refreshStreamerList();
-		bool haveStreamer(QString);
-		void refreshStreamerConfig(streamer* pStreamer);
-		database pDb; //#TODO make private and forward functions
-	private:
-		irc pIrc;
-		eventScheduler pEventScheduler;
-		QList<streamer*> streamerList;
+class controller : public QObject {
+	Q_OBJECT
+public:
+	controller();
+	~controller();
+	void initIRC();
+	void initDB();
+	void refreshStreamerList();
+	bool haveStreamer(QString);
+	void refreshStreamerConfig(streamer* pStreamer);
+	void refreshStreamerEvents(streamer* pStreamer);
+	streamer* getStreamerByChannel(QString); //#TODO add map/hashmap for that
+	database pDb; //#TODO make private and forward functions
+private:
+	irc pIrc;
+	eventScheduler pEventScheduler;
+	QList<streamer*> streamerList;
 	public slots:
-		void ircMessageIn(QString channel,QString user, QString message);
+	void ircMessageIn(QString channel, QString user, QString message);
 
 };
 

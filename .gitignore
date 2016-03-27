@@ -31,3 +31,4 @@
 *.pro.user
 /localdata.h
 /release
+/debug

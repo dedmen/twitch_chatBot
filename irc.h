@@ -7,6 +7,16 @@
 #include <QTimer>
 #include "eventscheduler.h"
 #include "database.h"
+#include <QRegularExpression>
+#include "streamer.h"
+struct ircRegularExpressions {	   //just to group them together to not mess up class
+	QRegularExpression PrivmsgExp;
+	QRegularExpression JoinExp;
+	QRegularExpression PartExp;
+	QRegularExpression ModeExp;
+};
+
+
 class irc : public QObject {
 	Q_OBJECT
 public:
@@ -24,15 +34,18 @@ private:
 	QStringList buffer;
 	QTimer * timer;
 	QStringList channelList;
+	ircRegularExpressions regExp; //static to keep them optimized
 	int delay;
 	public slots:
 	void addChannel(QString channel);
+	void sendMessageToChannel(streamer* pStreamer, QString message,bool ignoreMute = false);
 	private slots:
 	void ThreadStarted();
 	void connected();
 	void readData();
 	void parseData(QString dataS);
-	void sendMessageToChannel(QString channel, QString message);
+signals:
+	void ircMessageIn(QString channel, QString user, QString message);
 
 };
 extern irc* ircclient;
