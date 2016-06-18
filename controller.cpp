@@ -84,7 +84,7 @@ void controller::refreshStreamerEvents(streamer* pStreamer) {
 
 streamer* controller::getStreamerByChannel(QString channelId) {
 	for (streamer* pStreamer : streamerList)
-		if (pStreamer->channelId.compare(channelId) == 0)
+		if (pStreamer->channelId.compare(channelId,Qt::CaseInsensitive) == 0)
 			return pStreamer;
 	return NULL;
 }

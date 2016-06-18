@@ -39,6 +39,8 @@ event_BRRankup::~event_BRRankup() {
 }
 
 void event_BRRankup::tickEvent() {
+	if (!owner->isLive)
+		return;
 	//qDebug() << __FUNCTION__;
 	QJsonObject obj = twitchHelper::getBRData(steamID);
 	int kills = obj.value("kills").toInt();
@@ -120,9 +122,11 @@ void event_streamStats::tickEvent() {
 		//if (lastUptime > recordUptime){
 		owner->setConfigValue("uptimeRecord", QString::number(recordUptime));
 		//recordUptime = lastUptime;
-		//}
+		//}	  
+		owner->isLive = false;
 		return;
 	}
+	owner->isLive = true;
 	failcount = 0;
 	//#TODO Add admin command to flush all event data
 	//if (QDateTime::currentDateTime().time().minute()%10 == 0) {

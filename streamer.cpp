@@ -4,6 +4,7 @@
 streamer::streamer(QObject *parent, controller* pControl, quint32 streamerId, QString channelId) : QObject(parent), channelId(channelId), control(pControl),
 streamerId(streamerId) {
 	muted = false;
+	isLive = false;
 }
 
 streamer::~streamer() {

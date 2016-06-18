@@ -18,6 +18,7 @@ public:
 	void removeEvent(eventBase* pEvent) { events.removeAll(pEvent); };
 	QList<eventBase*> getEvents() { return events; };
 	bool muted;
+	bool isLive;
 	void checkMuted();
 private:
 	controller* control;
