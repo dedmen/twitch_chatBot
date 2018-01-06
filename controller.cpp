@@ -18,6 +18,7 @@ void controller::initIRC() {
 	pIrc.run();
 	connect(&pEventScheduler, &eventScheduler::sendMessageToChannel, &pIrc, &irc::sendMessageToChannel);
 	connect(&pIrc, &irc::ircMessageIn, this, &controller::ircMessageIn);
+    connect(&pIrc, &irc::userJoined, this, &controller::ircUserJoined);
 }
 
 void controller::initDB() {
@@ -155,6 +156,19 @@ void controller::ircMessageIn(QString channel, QString user, QString message) {
 	}
 	if (message.left(3).compare("was", Qt::CaseInsensitive) == 0)
 		qDebug() << user << message;
+
+}
+
+void controller::ircUserJoined(QString channel, QString user) {
+
+streamer* pStreamer = getStreamerByChannel(channel);
+
+if (pStreamer->getConfigValue("joinedAlert").isNull()) return;
+
+pIrc.sendMessageToChannel(pStreamer, "Welcome @"+user+"!");
+
+
+
 
 }
 

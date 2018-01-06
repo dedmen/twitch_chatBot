@@ -47,6 +47,7 @@ private:
 	void parseData(QString dataS);
 signals:
 	void ircMessageIn(QString channel, QString user, QString message);
+    void userJoined(QString channel, QString user);
 
 };
 extern irc* ircclient;

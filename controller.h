@@ -24,7 +24,7 @@ private:
 	QList<streamer*> streamerList;
 	public slots:
 	void ircMessageIn(QString channel, QString user, QString message);
-
+    void ircUserJoined(QString channel, QString user);
 };
 
 #endif // CONTROLLER_H
